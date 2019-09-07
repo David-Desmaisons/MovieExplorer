@@ -31,8 +31,9 @@ npm run serve
 
 ### Back-End
   - ASP.Net Core 2.2
-  - `Swashbuckle.AspNetCore` to provide swagger integration of the API
+  - [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) to provide swagger integration of the API
   - For tests:
+    - [XUnit](https://xunit.net/) as test framework
     - [NSubstitute](https://nsubstitute.github.io/) for mocking
     - [FluentAssertions](https://fluentassertions.com/) for assertion
 
