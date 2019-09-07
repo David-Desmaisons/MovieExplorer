@@ -1,6 +1,7 @@
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
@@ -33,6 +34,18 @@ namespace MovieExplorerApi.Services.Tests
             movies.Should().NotBeEmpty();
         }
 
+        [Fact]
+        public async Task GetUpComingMoviesAsync_With_Portuguese_Language_Returns_Result_Not_Empty()
+        {
+            var culture = new CultureInfo("pt-BR");
+            var result = await _MovieDatabaseService.GetUpComingMoviesAsync(1, culture);
+
+            result.Should().NotBeNull();
+            var movies = result.results;
+            movies.Should().NotBeNull();
+            movies.Should().NotBeEmpty();
+        }
+
         [Theory]
         [InlineData(1)]
         [InlineData(2)]
@@ -42,6 +55,16 @@ namespace MovieExplorerApi.Services.Tests
 
             result.Should().NotBeNull();
             result.page.Should().Be(page);
+        }
+
+        [Fact]
+        public async Task GetMovieDetailAsync_Returns_Result_Not_Empty()
+        {
+            var id = 474350;
+            var result = await _MovieDatabaseService.GetMovieDetailAsync(id);
+
+            result.Should().NotBeNull();
+            result.id.Should().Be(id);
         }
     }
 }

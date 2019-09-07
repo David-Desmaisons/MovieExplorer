@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Globalization;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using MovieExplorerApi.Services.DTO;
@@ -17,14 +18,31 @@ namespace MovieExplorerApi.Services
             _ApiKey = configuration[MovieDatabaseKey];
         }
 
-        public async Task<UpComingMovieResult> GetUpComingMoviesAsync(int page)
+        public async Task<UpComingMovieResult> GetUpComingMoviesAsync(int page, CultureInfo culture=null)
         {
-            var query = $"upcoming?api_key={_ApiKey}&page={page}";
+            var query = $"{(UpdateQuery("upcoming", culture))}&page={page}";
             var response = await _Client.GetAsync(query);
-            if (!response.IsSuccessStatusCode)
-                return null;
+            return await Convert<UpComingMovieResult>(response);
+        }
 
-            return await response.Content.ReadAsAsync<UpComingMovieResult>();
+        public async Task<MovieDetail> GetMovieDetailAsync(int movieId, CultureInfo culture = null)
+        {
+            var query = $"{(UpdateQuery($"{movieId}", culture))}";
+            var response = await _Client.GetAsync(query);
+            return await Convert<MovieDetail>(response);
+        }
+
+        private string UpdateQuery(string query, CultureInfo culture)
+        {
+            var language = culture?.Name ?? "en-US";
+            return $"{query}?api_key={_ApiKey}&language={language}";
+        }
+
+        private static async Task<T> Convert<T>(HttpResponseMessage response)
+        {
+            return response.IsSuccessStatusCode ? 
+                await response.Content.ReadAsAsync<T>() : 
+                default(T);
         }
     }
 }

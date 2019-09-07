@@ -17,13 +17,26 @@ namespace MovieExplorerApi.Site.Controllers
             _MovieDatabaseClient = movieDatabaseClient;
         }
 
-        // GET api/values
+        // GET api/movies
         [HttpGet]
         [ProducesResponseType(typeof(UpComingMovieResult), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UpComingMovieResult>> Get(int start)
         {
             var result = await _MovieDatabaseClient.GetUpComingMoviesAsync(start);
+            return GetFromResult(result);
+        }
+
+        // GET api/movies/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<MovieDetail>> GetMovie(int id)
+        {
+            var result = await _MovieDatabaseClient.GetMovieDetailAsync(id);
+            return GetFromResult(result);
+        }
+
+        private ActionResult<T> GetFromResult<T>(T result)
+        {
             if (result == null)
             {
                 return NotFound();

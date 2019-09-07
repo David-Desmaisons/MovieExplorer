@@ -46,5 +46,31 @@ namespace MovieExplorerApi.Site.Tests.Controllers
 
             res.Value.Should().Be(result);
         }
+
+        [Theory, AutoData]
+        public async Task GetMovie_Calls_GetMovieDetailAsync(int id)
+        {
+            await _MoviesController.GetMovie(id);
+            await _Client.Received(1).GetMovieDetailAsync(id);
+        }
+
+        [Theory, AutoData]
+        public async Task GetMovie_Returns_NotFound_When_GetUpComingMoviesAsync_Returns_Null(int id)
+        {
+            _Client.GetMovieDetailAsync(id).Returns(Task.FromResult(default(MovieDetail)));
+            var res = await _MoviesController.GetMovie(id);
+            res.Result.Should().BeAssignableTo<NotFoundResult>();
+        }
+
+        [Theory, AutoData]
+        public async Task GetMovie_UpComingMovieResult_NotFound_When_GetUpComingMoviesAsync_Returns_Null(int id)
+        {
+            var result = new MovieDetail();
+            _Client.GetMovieDetailAsync(id).Returns(Task.FromResult(result));
+
+            var res = await _MoviesController.GetMovie(id);
+
+            res.Value.Should().Be(result);
+        }
     }
 }
