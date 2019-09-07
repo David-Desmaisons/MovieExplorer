@@ -9,12 +9,12 @@ namespace MovieExplorerApi.Services
     {
         private readonly HttpClient _Client;
         private readonly string _ApiKey;
-        private const string MdbKey = "TMDBKey";
+        private const string MovieDatabaseKey = "TheMovieDatabase:APIKey";
 
         public TheMovieDatabaseClient(HttpClient client, IConfiguration configuration)
         {
             _Client = client;
-            _ApiKey = configuration[MdbKey];
+            _ApiKey = configuration[MovieDatabaseKey];
         }
 
         public async Task<UpComingMovieResult> GetUpComingMoviesAsync(int page)

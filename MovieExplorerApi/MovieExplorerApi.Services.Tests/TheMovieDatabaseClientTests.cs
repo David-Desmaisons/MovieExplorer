@@ -14,7 +14,7 @@ namespace MovieExplorerApi.Services.Tests
         public TheMovieDatabaseClientTests()
         {
             var configuration = NSubstitute.Substitute.For<IConfiguration>();
-            configuration["TMDBKey"] = "1f54bd990f1cdfb230adb312546d765d";
+            configuration["TheMovieDatabase:APIKey"] = "1f54bd990f1cdfb230adb312546d765d";
             var client = new HttpClient()
             {
                 BaseAddress = new Uri("https://api.themoviedb.org/3/movie/")

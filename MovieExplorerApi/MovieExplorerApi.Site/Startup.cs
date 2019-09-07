@@ -22,7 +22,7 @@ namespace MovieExplorerApi.Site
         {
             services.AddHttpClient<ITheMovieDatabaseClient,TheMovieDatabaseClient>(client =>
             {
-                client.BaseAddress = new Uri("https://api.themoviedb.org/3/movie/");
+                client.BaseAddress = new Uri(Configuration["TheMovieDatabase:url"]);
             });
 
             services.AddCors(o => o.AddDefaultPolicy(builder =>
