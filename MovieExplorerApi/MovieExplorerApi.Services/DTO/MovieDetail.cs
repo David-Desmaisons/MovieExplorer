@@ -16,12 +16,12 @@ namespace MovieExplorerApi.Services.DTO
         public string overview { get; set; }
         public float popularity { get; set; }
         public string poster_path { get; set; }
-        public Production_Company[] production_companies { get; set; }
-        public Production_Country[] production_countries { get; set; }
+        public Company[] production_companies { get; set; }
+        public Country[] production_countries { get; set; }
         public DateTime release_date { get; set; }
         public int revenue { get; set; }
         public int runtime { get; set; }
-        public Spoken_Language[] spoken_languages { get; set; }
+        public Language[] spoken_languages { get; set; }
         public string status { get; set; }
         public string tagline { get; set; }
         public string title { get; set; }

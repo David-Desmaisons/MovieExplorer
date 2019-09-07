@@ -1,6 +1,6 @@
 ﻿namespace MovieExplorerApi.Services.DTO
 {
-    public class Production_Company
+    public class Company
     {
         public int id { get; set; }
         public string logo_path { get; set; }

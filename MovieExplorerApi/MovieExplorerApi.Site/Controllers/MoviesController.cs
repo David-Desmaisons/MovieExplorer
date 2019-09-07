@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieExplorerApi.Services;
@@ -29,6 +30,8 @@ namespace MovieExplorerApi.Site.Controllers
 
         // GET api/movies/5
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(MovieDetail), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<MovieDetail>> GetMovie(int id)
         {
             var result = await _MovieDatabaseClient.GetMovieDetailAsync(id);

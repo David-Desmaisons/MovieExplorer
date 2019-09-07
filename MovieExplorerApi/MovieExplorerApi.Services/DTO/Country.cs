@@ -1,8 +1,8 @@
 ﻿namespace MovieExplorerApi.Services.DTO
 {
-    public class Spoken_Language
+    public class Country
     {
-        public string iso_639_1 { get; set; }
+        public string iso_3166_1 { get; set; }
         public string name { get; set; }
     }
 }
