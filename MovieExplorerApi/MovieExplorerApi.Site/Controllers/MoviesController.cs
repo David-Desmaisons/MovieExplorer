@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieExplorerApi.Services;
@@ -24,7 +23,12 @@ namespace MovieExplorerApi.Site.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UpComingMovieResult>> Get()
         {
-            return await _MovieDatabaseClient.GetUpComingMoviesAsync(1);
+            var result = await _MovieDatabaseClient.GetUpComingMoviesAsync(1);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return result;
         }
 
         // GET api/values/5
