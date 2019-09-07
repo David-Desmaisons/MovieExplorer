@@ -2,7 +2,7 @@ using Xunit;
 
 namespace MovieExplorerApi.Services.Tests
 {
-    public class UnitTest1
+    public class TheMovieDatabaseServiceTests
     {
         [Fact]
         public void Test1()

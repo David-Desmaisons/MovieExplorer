@@ -2,7 +2,7 @@
 
 namespace MovieExplorerApi.Services
 {
-    public interface ITheMovieDatabaseServices
+    public interface ITheMovieDatabaseService
     {
         UpComingMovieResult GetUpComingMovies(int page);
     }
