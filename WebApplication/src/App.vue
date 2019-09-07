@@ -1,20 +1,19 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <v-toolbar-title class="headline">
+      <v-toolbar-title>
         <v-icon>mdi-movie-roll</v-icon>
         <span>Movie Explorer</span>
       </v-toolbar-title>
     </v-app-bar>
 
     <v-content>
-      <router-view></router-view>
+      <router-view :key="$route.fullPath"></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import { watch } from "fs";
 export default {
   data: () => ({
     dark: true

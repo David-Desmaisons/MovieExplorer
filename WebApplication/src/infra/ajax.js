@@ -2,7 +2,7 @@ import axios from "axios";
 
 function getFullUrl(url) {
   const baseUrl = process.env.VUE_APP_BASE_URL;
-  return `${baseUrl}${url}`;
+  return `${baseUrl}api/Movies${url}`;
 }
 
 async function get(url) {
