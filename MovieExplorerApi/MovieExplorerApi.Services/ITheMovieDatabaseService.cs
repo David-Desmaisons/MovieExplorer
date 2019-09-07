@@ -1,9 +1,10 @@
-﻿using MovieExplorerApi.Services.DTO;
+﻿using System.Threading.Tasks;
+using MovieExplorerApi.Services.DTO;
 
 namespace MovieExplorerApi.Services
 {
     public interface ITheMovieDatabaseService
     {
-        UpComingMovieResult GetUpComingMovies(int page);
+        Task<UpComingMovieResult> GetUpComingMoviesAsync(int page);
     }
 }
