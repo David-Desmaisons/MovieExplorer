@@ -10,9 +10,12 @@ namespace MovieExplorerApi.Site
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostingEnvironment _Environment;
+
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            _Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
@@ -25,18 +28,13 @@ namespace MovieExplorerApi.Site
                 client.BaseAddress = new Uri(Configuration["TheMovieDatabase:url"]);
             });
 
-            services.AddCors(o => o.AddDefaultPolicy(builder =>
-            {
-                builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
-            }));
+            services.AddCorsForApplication(_Environment, Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddSwaggerGen(swagger =>
             {
-                swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "API" });
+                swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Movie Explorer API" });
             });
         }
 
@@ -60,7 +58,7 @@ namespace MovieExplorerApi.Site
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("swagger/v1/swagger.json", "API");
+                c.SwaggerEndpoint("swagger/v1/swagger.json", "Movie Explorer API");
                 c.RoutePrefix = "";
             });
 
