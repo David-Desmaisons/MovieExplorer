@@ -2,22 +2,24 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.Extensions.Configuration;
 using Xunit;
-
 
 namespace MovieExplorerApi.Services.Tests
 {
-    public class TheMovieDatabaseServiceTests
+    public class TheMovieDatabaseClientTests
     {
-        private readonly TheMovieDatabaseService _MovieDatabaseService;
+        private readonly TheMovieDatabaseClient _MovieDatabaseService;
 
-        public TheMovieDatabaseServiceTests()
+        public TheMovieDatabaseClientTests()
         {
+            var configuration = NSubstitute.Substitute.For<IConfiguration>();
+            configuration["TMDBKey"] = "1f54bd990f1cdfb230adb312546d765d";
             var client = new HttpClient()
             {
                 BaseAddress = new Uri("https://api.themoviedb.org/3/movie/")
             };
-            _MovieDatabaseService = new TheMovieDatabaseService(client, "1f54bd990f1cdfb230adb312546d765d");
+            _MovieDatabaseService = new TheMovieDatabaseClient(client, configuration);
         }
 
         [Fact]

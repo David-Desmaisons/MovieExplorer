@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MovieExplorerApi.Services;
 
 namespace MovieExplorerApi.Site
 {
@@ -18,6 +20,11 @@ namespace MovieExplorerApi.Site
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient<ITheMovieDatabaseClient,TheMovieDatabaseClient>(client =>
+            {
+                client.BaseAddress = new Uri("https://api.themoviedb.org/3/movie/");
+            });
+
             services.AddCors(o => o.AddDefaultPolicy(builder =>
             {
                 builder.AllowAnyOrigin()

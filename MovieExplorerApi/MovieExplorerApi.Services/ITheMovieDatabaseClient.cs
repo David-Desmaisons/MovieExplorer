@@ -3,7 +3,7 @@ using MovieExplorerApi.Services.DTO;
 
 namespace MovieExplorerApi.Services
 {
-    public interface ITheMovieDatabaseService
+    public interface ITheMovieDatabaseClient
     {
         Task<UpComingMovieResult> GetUpComingMoviesAsync(int page);
     }
