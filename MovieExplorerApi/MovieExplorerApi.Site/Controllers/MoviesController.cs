@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MovieRestApi.Controllers
+namespace MovieExplorerApi.Site.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
