@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <UserSecretsId>13dfaee6-a644-4924-bfb4-0b9bae28534f</UserSecretsId>
+    <AssemblyName>MovieExplorerApi.Site</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
