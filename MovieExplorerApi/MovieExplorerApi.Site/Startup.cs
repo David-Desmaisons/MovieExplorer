@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MovieRestApi
+namespace MovieExplorerApi.Site
 {
     public class Startup
     {
