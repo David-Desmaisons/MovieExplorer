@@ -36,6 +36,7 @@ npm run serve
     - [XUnit](https://xunit.net/) as test framework
     - [NSubstitute](https://nsubstitute.github.io/) for mocking
     - [FluentAssertions](https://fluentassertions.com/) for assertion
+    - [AutoFixture](https://github.com/AutoFixture/AutoFixture) to generate random data
 
 ### Front-End
 

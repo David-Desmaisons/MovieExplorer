@@ -21,21 +21,14 @@ namespace MovieExplorerApi.Site.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(UpComingMovieResult), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UpComingMovieResult>> Get()
+        public async Task<ActionResult<UpComingMovieResult>> Get(int start)
         {
-            var result = await _MovieDatabaseClient.GetUpComingMoviesAsync(1);
+            var result = await _MovieDatabaseClient.GetUpComingMoviesAsync(start);
             if (result == null)
             {
                 return NotFound();
             }
             return result;
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return NotFound();
         }
     }
 }

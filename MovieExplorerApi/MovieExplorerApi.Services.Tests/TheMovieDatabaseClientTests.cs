@@ -1,8 +1,8 @@
+using FluentAssertions;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using FluentAssertions;
-using Microsoft.Extensions.Configuration;
 using Xunit;
 
 namespace MovieExplorerApi.Services.Tests
@@ -31,6 +31,17 @@ namespace MovieExplorerApi.Services.Tests
             var movies = result.results;
             movies.Should().NotBeNull();
             movies.Should().NotBeEmpty();
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        public async Task GetUpComingMoviesAsync_Returns_Required_Page(int page)
+        {
+            var result = await _MovieDatabaseService.GetUpComingMoviesAsync(page);
+
+            result.Should().NotBeNull();
+            result.page.Should().Be(page);
         }
     }
 }

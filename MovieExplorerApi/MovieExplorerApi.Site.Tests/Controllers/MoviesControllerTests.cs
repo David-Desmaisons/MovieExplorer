@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using AutoFixture.Xunit2;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using MovieExplorerApi.Services;
@@ -20,28 +21,28 @@ namespace MovieExplorerApi.Site.Tests.Controllers
             _MoviesController = new MoviesController(_Client);
         }
 
-        [Fact]
-        public async Task Get_Calls_GetUpComingMoviesAsync()
+        [Theory,AutoData]
+        public async Task Get_Calls_GetUpComingMoviesAsync(int page)
         {
-            await _MoviesController.Get();
-            await _Client.Received(1).GetUpComingMoviesAsync(1);
+            await _MoviesController.Get(page);
+            await _Client.Received(1).GetUpComingMoviesAsync(page);
         }
 
-        [Fact]
-        public async Task Get_Returns_NotFound_When_GetUpComingMoviesAsync_Returns_Null()
+        [Theory, AutoData]
+        public async Task Get_Returns_NotFound_When_GetUpComingMoviesAsync_Returns_Null(int page)
         {
-            _Client.GetUpComingMoviesAsync(1).Returns(Task.FromResult(default(UpComingMovieResult)));
-            var res = await _MoviesController.Get();
+            _Client.GetUpComingMoviesAsync(page).Returns(Task.FromResult(default(UpComingMovieResult)));
+            var res = await _MoviesController.Get(page);
             res.Result.Should().BeAssignableTo<NotFoundResult>();
         }
 
-        [Fact]
-        public async Task Get_UpComingMovieResult_NotFound_When_GetUpComingMoviesAsync_Returns_Null()
+        [Theory, AutoData]
+        public async Task Get_UpComingMovieResult_NotFound_When_GetUpComingMoviesAsync_Returns_Null(int page)
         {
             var result = new UpComingMovieResult();
-            _Client.GetUpComingMoviesAsync(1).Returns(Task.FromResult(result));
+            _Client.GetUpComingMoviesAsync(page).Returns(Task.FromResult(result));
 
-            var res = await _MoviesController.Get();
+            var res = await _MoviesController.Get(page);
 
             res.Value.Should().Be(result);
         }
