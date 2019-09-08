@@ -18,6 +18,10 @@
   </section>
 </template>
 <script>
+function isChromeContext() {
+  return !!window.chrome && !!window.chrome.csi;
+}
+const isChrome = isChromeContext();
 const props = {
   flipped: {
     required: false,
@@ -58,6 +62,9 @@ export default {
   },
   watch: {
     flipped(value) {
+      if (!isChrome) {
+        return;
+      }
       //Chrome CSS fix
       const { transition, firstFlip } = this;
       if (!value || !firstFlip) {

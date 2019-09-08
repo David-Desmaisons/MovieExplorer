@@ -22,7 +22,7 @@ import MovieCard from "../components/MovieCard";
 import ScrollWatch from "scrollwatch";
 import { mapState } from "vuex";
 
-function mapMovie(movie){
+function mapMovie(movie) {
   return {
     ...movie,
     poster_url: buildUrl(movie.poster_path, "w500"),

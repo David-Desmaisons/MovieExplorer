@@ -2,7 +2,7 @@
   <div>
     <MovieInformation
       v-if="!movie.poster_url"
-      class="information"
+      class="movie-information"
       :movie="movie"
     />
     <FlipCard
@@ -62,11 +62,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.card {
-  height: 300px;
-  width: 200px;
-}
-
 .image {
   width: 100%;
   height: 100%;
@@ -74,15 +69,15 @@ export default {
 
 .card-side {
   margin: 0;
-  width: 100%;
-  height: 100%;
+  width: 220px;
+  height: 400px;
 }
 
 .back {
   background: grey;
 }
 
-.information {
+.movie-information {
   width: 220px;
   height: 400px;
   background: grey;
