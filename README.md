@@ -5,6 +5,12 @@
 The web-application is a Single Page Application implemented in vue.js.
 
 The back-end API is a REST-API implemented in ASP.Net Core.
+It is decomposed in two assembly: 
+- the Site is responsible for exposing the API
+- Services exposes the access to the Movie DataBase API through interface for better decoupling. 
+
+No caching strategy is currently implemented.
+
 
 
 ## Assumptions (if any)
