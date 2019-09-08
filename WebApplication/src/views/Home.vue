@@ -1,9 +1,21 @@
 <template>
   <v-content>
-    <v-container fluid class="main-container">
-      <v-flex lg10 offset-lg1 row wrap class="movie-item-container">
+    <v-container
+      fluid
+      class="main-container"
+    >
+      <v-flex
+        lg10
+        offset-lg1
+        row
+        wrap
+        class="movie-item-container"
+      >
         <v-overlay :value="firstload">
-          <v-progress-circular indeterminate size="64"></v-progress-circular>
+          <v-progress-circular
+            indeterminate
+            size="64"
+          ></v-progress-circular>
         </v-overlay>
 
         <MovieCard
@@ -20,7 +32,7 @@
 import { buildUrl } from "../infra/urlBuilder";
 import MovieCard from "../components/MovieCard";
 import ScrollWatch from "scrollwatch";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 function mapMovie(movie) {
   return {
@@ -61,20 +73,27 @@ export default {
     });
   },
   methods: {
+    ...mapMutations(["updateLoading"]),
     async loadNextPage() {
-      const { loadedAll, loading, pageLoaded, movies } = this;
+      const { loadedAll, loading, pageLoaded } = this;
       if (loadedAll || loading) {
         return;
       }
+      this.updateLoading(!this.firstload);
       this.loading = true;
       const nextPage = pageLoaded + 1;
-      const res = await this.$get(`?start=${nextPage}`);
-      const updatedMovies = res.results.map(mapMovie);
+      const result = await this.$get(`?start=${nextPage}`);
+      this.onLoaded(result, nextPage);
+    },
+    onLoaded({ results, total_results }, nextPage) {
+      const { movies } = this;
+      const updatedMovies = results.map(mapMovie);
       movies.push(...updatedMovies);
       this.pageLoaded = nextPage;
-      this.loadedAll = res.total_results === movies.length;
+      this.loadedAll = total_results === movies.length;
       this.firstload = false;
       this.loading = false;
+      this.updateLoading(false);
     }
   },
   computed: {

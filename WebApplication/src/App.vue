@@ -13,6 +13,7 @@
         </v-tooltip>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn v-if="loading" text loading></v-btn>
       <v-text-field
         v-if="showSearch"
         class="search"
@@ -42,7 +43,7 @@ export default {
     this.$vuetify.theme.dark = false;
   },
   computed: {
-    ...mapState(["showSearch"]),
+    ...mapState(["showSearch", "loading"]),
     searchInformation: {
       get() {
         return this.$store.state.searchInformation;
