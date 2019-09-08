@@ -20,7 +20,7 @@ namespace MovieExplorerApi.Services.DTO
         public Country[] production_countries { get; set; }
         public DateTime release_date { get; set; }
         public int revenue { get; set; }
-        public int runtime { get; set; }
+        public int? runtime { get; set; }
         public Language[] spoken_languages { get; set; }
         public string status { get; set; }
         public string tagline { get; set; }
