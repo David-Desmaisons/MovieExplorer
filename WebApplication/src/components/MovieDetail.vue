@@ -4,12 +4,12 @@
       <v-col :sm="6">
         <v-img v-if="posterUrl" aspect-ratio="1" contain :src="posterUrl">
           <template #placeholder>
-            <div class="place-holder"></div>
+            <div class="place-holder" />
           </template>
         </v-img>
-        <div v-else class="place-holder pa-4">
-          <h1 class="text-center">No image</h1>
-        </div>
+        <v-row v-else class="place-holder pa-4">
+          <h1>No image</h1>
+        </v-row>
       </v-col>
       <v-col :sm="4">
         <v-container class="pa-0">

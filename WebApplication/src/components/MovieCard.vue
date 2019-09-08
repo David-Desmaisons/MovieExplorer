@@ -10,11 +10,24 @@
       @mouseover.native="flipped = true"
       @mouseleave.native="flipped = false"
       :flipped="flipped"
-      width="200px"
+      width="220px"
       height="400px"
     >
       <template #front>
-        <div class="card-side" :style="{ background }"></div>
+        <v-img :src="movie.poster_url" width="220px" height="400px">
+          <template #placeholder>
+            <v-row
+              class="fill-height ma-0 grey"
+              align="center"
+              justify="center"
+            >
+              <v-progress-circular
+                indeterminate
+                color="black"
+              ></v-progress-circular>
+            </v-row>
+          </template>
+        </v-img>
       </template>
 
       <template #back>
@@ -70,7 +83,7 @@ export default {
 }
 
 .information {
-  width: 200px;
+  width: 220px;
   height: 400px;
   background: grey;
   margin: 5px;
