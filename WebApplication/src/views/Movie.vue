@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-content class="pa-0">
     <v-container fluid class="main-container">
       <v-flex lg10 offset-lg1>
         <MovieDetailLazy :id="id" />
