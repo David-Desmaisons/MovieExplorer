@@ -16,7 +16,7 @@
 <script>
 export default {
   data: () => ({
-    dark: true
+    dark: false
   }),
   created() {
     this.$vuetify.theme.dark = this.dark;
