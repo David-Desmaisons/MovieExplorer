@@ -2,7 +2,10 @@
 
 ## Architecture
 
-I implement a SPA with a REST API implemented in ASP.Net Core 2.2 and a Front-End in vue.js 2.6.2
+The web-application is a Single Page Application implemented in vue.js.
+
+The back-end API is a REST-API implemented in ASP.Net Core.
+
 
 ## Assumptions (if any)
 
@@ -40,7 +43,8 @@ npm run serve
 
 ### Front-End
 
-- vue.js as the front-end framework
+- [vue.js](https://vuejs.org/) as the front-end framework
+- [vue router](https://router.vuejs.org/) to handle client-side navigation
 - [vuetify](https://vuetifyjs.com/en/) as UI library
 - [axios](https://github.com/axios/axios) as a ajax library
 
