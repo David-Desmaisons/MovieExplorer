@@ -39,6 +39,23 @@
                     dark
                     small
                     color="primary"
+                    :to="{ name: 'home' }"
+                    v-on="on"
+                  >
+                    <v-icon dark>mdi-movie-roll</v-icon>
+                  </v-btn>
+                </template>
+                <span class="caption">To home</span>
+              </v-tooltip>
+
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    class="mx-2"
+                    fab
+                    dark
+                    small
+                    color="secondary"
                     :href="movie.homepage"
                     v-on="on"
                   >

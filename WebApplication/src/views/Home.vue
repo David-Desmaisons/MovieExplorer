@@ -1,21 +1,9 @@
 <template>
   <v-content>
-    <v-container
-      fluid
-      class="main-container"
-    >
-      <v-flex
-        lg10
-        offset-lg1
-        row
-        wrap
-        class="movie-item-container"
-      >
+    <v-container fluid class="main-container">
+      <v-flex lg10 offset-lg1 row wrap class="movie-item-container">
         <v-overlay :value="firstload">
-          <v-progress-circular
-            indeterminate
-            size="64"
-          ></v-progress-circular>
+          <v-progress-circular indeterminate size="64"></v-progress-circular>
         </v-overlay>
 
         <MovieCard
