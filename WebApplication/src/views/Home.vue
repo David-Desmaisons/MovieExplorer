@@ -1,25 +1,13 @@
 <template>
   <v-content>
-    <v-container
-      fluid
-      class="main-container"
-    >
-      <v-flex
-        lg10
-        offset-lg1
-        row
-        wrap
-        class="movie-item-container"
-      >
+    <v-container fluid class="main-container">
+      <v-flex lg10 offset-lg1 row wrap class="movie-item-container">
         <v-overlay :value="firstload">
-          <v-progress-circular
-            indeterminate
-            size="64"
-          ></v-progress-circular>
+          <v-progress-circular indeterminate size="64"></v-progress-circular>
         </v-overlay>
 
         <MovieCard
-          :class="{'last-movie-visible':true}"
+          :class="{ 'last-movie-visible': true }"
           v-for="movie in movies"
           :key="movie.id"
           :movie="movie"
@@ -51,14 +39,14 @@ export default {
   mounted() {
     var watch = new ScrollWatch({
       infiniteScroll: true,
-      watch: 'section',
+      watch: "section",
       infiniteOffset: 200,
       onInfiniteYInView: () => this.loadNextPage()
     });
     this.$once("hook:destroy", () => {
       watch.destroy();
     });
-     this.$on("hook:updated", () => {
+    this.$on("hook:updated", () => {
       watch.refresh();
     });
   },

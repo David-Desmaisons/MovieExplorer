@@ -1,19 +1,27 @@
 <template>
-  <FlipCard
-    @mouseover.native="flipped = true"
-    @mouseleave.native="flipped = false"
-    :flipped="flipped"
-    width="200px"
-    height="400px"
-  >
-    <template #front>
-      <div class="card-side" :style="{ background }"></div>
-    </template>
+  <div>
+    <MovieInformation
+      v-if="!movie.poster_url"
+      class="information"
+      :movie="movie"
+    />
+    <FlipCard
+      v-else
+      @mouseover.native="flipped = true"
+      @mouseleave.native="flipped = false"
+      :flipped="flipped"
+      width="200px"
+      height="400px"
+    >
+      <template #front>
+        <div class="card-side" :style="{ background }"></div>
+      </template>
 
-    <template #back>
-      <MovieInformation class="card-side back" :movie="movie" />
-    </template>
-  </FlipCard>
+      <template #back>
+        <MovieInformation class="card-side back" :movie="movie" />
+      </template>
+    </FlipCard>
+  </div>
 </template>
 <script>
 import FlipCard from "./FlipCard";
@@ -59,5 +67,12 @@ export default {
 
 .back {
   background: grey;
+}
+
+.information {
+  width: 200px;
+  height: 400px;
+  background: grey;
+  margin: 5px;
 }
 </style>

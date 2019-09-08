@@ -2,11 +2,14 @@
   <v-card>
     <v-row class="py-4 pl-4 mb-6">
       <v-col :sm="6">
-        <v-img aspect-ratio="1" contain :src="posterUrl">
+        <v-img v-if="posterUrl" aspect-ratio="1" contain :src="posterUrl">
           <template #placeholder>
             <div class="place-holder"></div>
           </template>
         </v-img>
+        <div v-else class="place-holder pa-4">
+          <h1 class="text-center">No image</h1>
+        </div>
       </v-col>
       <v-col :sm="4">
         <v-container class="pa-0">
@@ -85,5 +88,8 @@ export default {
   background: lightgray;
   height: 750px;
   margin: 0px 130px 0px 120px;
+  h1 {
+    vertical-align: middle;
+  }
 }
 </style>
