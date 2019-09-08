@@ -11,7 +11,7 @@
     </template>
 
     <template #back>
-      <MovieInformation class="card-side back" :movie="movie"/>
+      <MovieInformation class="card-side back" :movie="movie" />
     </template>
   </FlipCard>
 </template>

@@ -64,7 +64,7 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-  transform: translate3d(0,0,0);
+  transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
 }
 .flip-card .back-card {

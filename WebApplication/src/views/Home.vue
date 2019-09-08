@@ -2,11 +2,7 @@
   <v-content>
     <v-container fluid class="main-container">
       <v-flex lg10 offset-lg1 row wrap>
-        <MovieCard
-          v-for="movie in movies"
-          :key="movie.id"
-          :movie="movie"
-        />
+        <MovieCard v-for="movie in movies" :key="movie.id" :movie="movie" />
       </v-flex>
     </v-container>
   </v-content>
