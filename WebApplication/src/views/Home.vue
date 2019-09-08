@@ -5,8 +5,7 @@
         <MovieCard
           v-for="movie in movies"
           :key="movie.id"
-          :image="movie.poster_url"
-          :title="movie.title"
+          :movie="movie"
         />
       </v-flex>
     </v-container>

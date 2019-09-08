@@ -1,16 +1,21 @@
 <template>
-<section class="card-container" :style="{width, height, perspective: perspective+'px'}">
-  <div class="flip-card" :class="{flipped}" :style="{transition: 'transform '+transition+'s'}">
-    <figure class="front">
-        <slot name="front">
-        </slot> 
-    </figure>
-    <figure class="back-card">
-        <slot name="back">
-        </slot>
-    </figure>
-  </div>
-</section>
+  <section
+    class="card-container"
+    :style="{ width, height, perspective: perspective + 'px' }"
+  >
+    <div
+      class="flip-card"
+      :class="{ flipped }"
+      :style="{ transition: 'transform ' + transition + 's' }"
+    >
+      <figure class="front">
+        <slot name="front"> </slot>
+      </figure>
+      <figure class="back-card">
+        <slot name="back"> </slot>
+      </figure>
+    </div>
+  </section>
 </template>
 <script>
 const props = {

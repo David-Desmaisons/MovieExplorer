@@ -2,62 +2,39 @@
   <FlipCard
     @mouseover.native="flipped = true"
     @mouseleave.native="flipped = false"
-    :flipped="flipped"
+    :flipped="true"
     width="200px"
     height="400px"
   >
     <template #front>
-      <!-- <v-img class="white--text" height="100%" :src="image" style="position:absolute;">
-      </v-img> -->
       <div class="card-side" :style="{ background }"></div>
     </template>
 
     <template #back>
-      <div class="card-side back">
-        <div class="v-card__title">{{ title }}</div>
-        <div class="v-card__text">I'm card text</div>
-        <div class="v-card__actions">
-          <v-btn class="mx-2" fab dark small color="primary">
-            <v-icon dark>mdi-minus</v-icon>
-          </v-btn>
-        </div>
-      </div>
-      <!-- -->
-
-      <!--  <v-card class="card-side back">
-        <v-card-title>{{ title }}</v-card-title>
-        <v-card-text>I'm card text</v-card-text>
-       <v-card-actions class="actions">
-         <v-btn
-            class="actions"
-          >Click</v-btn>
-        </v-card-actions> 
-      </v-card>-->
+      <MovieInformation class="card-side back" :movie="movie"/>
     </template>
   </FlipCard>
 </template>
 <script>
 import FlipCard from "./FlipCard";
+import MovieInformation from "./MovieInformation";
 export default {
   components: {
-    FlipCard
+    FlipCard,
+    MovieInformation
   },
   data: () => ({
     flipped: false
   }),
   props: {
-    image: {
+    movie: {
       required: true,
-      type: String
-    },
-    title: {
-      required: true,
-      type: String
+      type: Object
     }
   },
   computed: {
     background() {
-      return `url('${this.image}') center/cover no-repeat`;
+      return `url('${this.movie.poster_url}') center/cover no-repeat`;
     }
   }
 };
