@@ -6,8 +6,15 @@
           <v-col :sm="6">
             <div class="place-holder"></div>
           </v-col>
-          <v-col :sm="4"> </v-col>
+          <v-col :sm="4"></v-col>
         </v-row>
+      </v-card>
+    </template>
+    <template #error={error}>
+      <v-card>
+        <v-card-title>
+          Problem: please try again or check url.
+        </v-card-title>
       </v-card>
     </template>
     <template #default="{data}">

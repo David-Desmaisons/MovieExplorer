@@ -3,6 +3,9 @@
     <slot v-if="loading" name="loading">
       <div>Loading ...</div>
     </slot>
+    <slot v-else-if="error" name="error" v-bind="{ error }">
+      <div>{{ error }}</div>
+    </slot>
     <slot v-else v-bind="{ data }"> </slot>
   </div>
 </template>
@@ -13,11 +16,17 @@ export default {
   props: ["url"],
   data: () => ({
     loading: true,
-    data: null
+    data: null,
+    error: null
   }),
   async created() {
-    this.data = await this.$get(this.url);
-    this.loading = false;
+    try {
+      this.data = await this.$get(this.url);
+      this.loading = false;
+    } catch (error) {
+      this.error = error;
+      this.loading = false;
+    }
   }
 };
 </script>
