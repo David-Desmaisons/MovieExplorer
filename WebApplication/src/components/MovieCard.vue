@@ -19,6 +19,7 @@
 import FlipCard from "./FlipCard";
 import MovieInformation from "./MovieInformation";
 export default {
+  name: "movie-card",
   components: {
     FlipCard,
     MovieInformation

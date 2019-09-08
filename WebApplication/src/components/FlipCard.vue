@@ -11,10 +11,7 @@
       <figure class="front-card">
         <slot name="front"> </slot>
       </figure>
-      <figure
-        class="back-card"
-        :style="backStyle"
-      >
+      <figure class="back-card" :style="backStyle">
         <slot name="back"> </slot>
       </figure>
     </div>
@@ -48,6 +45,7 @@ const props = {
   }
 };
 export default {
+  name: "flip-card",
   props,
   data: () => ({
     firstFlip: true,
@@ -60,17 +58,19 @@ export default {
   },
   watch: {
     flipped(value) {
-      if (!value || !this.firstFlip) {
+      //Chrome CSS fix
+      const { transition, firstFlip } = this;
+      if (!value || !firstFlip) {
         return;
       }
       this.firstFlip = false;
-      window.setTimeout(() => {
-        this.forceBackface = true;
-      }, this.transition * 300);
+      const update = (force, time) =>
+        window.setTimeout(() => {
+          this.forceBackface = force;
+        }, time);
 
-      window.setTimeout(() => {
-        this.forceBackface = false;
-      }, this.transition * 1000);
+      update(true, transition * 300);
+      update(false, transition * 1000);
     }
   }
 };

@@ -1,8 +1,11 @@
 <template>
-  <div>
-    <div>Movie {{ id }}</div>
-    <MovieDetail :id="id" />
-  </div>
+  <v-content>
+    <v-container fluid class="main-container">
+      <v-flex lg10 offset-lg1>
+        <MovieDetail :id="id" />
+      </v-flex>
+    </v-container>
+  </v-content>
 </template>
 <script>
 import MovieDetail from "../components/MovieDetail";

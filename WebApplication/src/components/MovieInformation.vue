@@ -20,6 +20,7 @@
 </template>
 <script>
 export default {
+  name: "movie-information",
   props: {
     movie: {
       required: true,
@@ -40,9 +41,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-// .information {
-//   backface-visibility: visible;
-// }
 div.normal {
   word-break: normal;
 }

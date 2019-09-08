@@ -12,6 +12,7 @@ import { buildUrl } from "../infra/urlBuilder";
 import MovieCard from "../components/MovieCard";
 
 export default {
+  name: "home",
   components: {
     MovieCard
   },
