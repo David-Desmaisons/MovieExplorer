@@ -43,7 +43,7 @@ export default {
     firstload: true
   }),
   async created() {
-    this.$store.dispatch("showSearch");
+    this.$store.dispatch("displaySearch");
     await this.loadNextPage();
   },
   mounted() {

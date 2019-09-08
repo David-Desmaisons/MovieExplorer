@@ -27,7 +27,7 @@ export default new Vuex.Store({
     },
     hideSearch({ commit }) {
       commit("updateSearchInformation", "");
-      commit("updateSearchStatus", true);
+      commit("updateSearchStatus", false);
     }
   }
 });
