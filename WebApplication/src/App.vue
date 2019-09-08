@@ -12,6 +12,20 @@
           <span class="caption">Home</span>
         </v-tooltip>
       </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-if="showSearch"
+        class="search"
+        hide-details
+        rounded
+        outlined
+        solo
+        flat
+        append-icon="mdi-magnify"
+        v-model="searchInformation"
+        height="2px"
+        label="Search"
+      ></v-text-field>
     </v-app-bar>
 
     <v-content>
@@ -21,17 +35,27 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
-  data: () => ({
-    dark: false
-  }),
   created() {
-    this.$vuetify.theme.dark = this.dark;
+    this.$vuetify.theme.dark = false;
   },
-  watch: {
-    dark(value) {
-      this.$vuetify.theme.dark = value;
+  computed: {
+    ...mapState(["showSearch"]),
+    searchInformation: {
+      get() {
+        return this.$store.state.searchInformation;
+      },
+      set(value) {
+        this.$store.commit("updateSearchInformation", value);
+      }
     }
   }
 };
 </script>
+<style lang="less" scoped>
+.search {
+  max-width: 30%;
+}
+</style>

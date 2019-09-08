@@ -10,7 +10,7 @@
         </v-row>
       </v-card>
     </template>
-    <template #error={error}>
+    <template #error="{error}">
       <v-card>
         <v-card-title>
           Problem: please try again or check url.

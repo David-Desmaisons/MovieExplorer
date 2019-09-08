@@ -14,6 +14,9 @@ export default {
   components: {
     MovieDetailLazy
   },
+  created() {
+    this.$store.dispatch("hideSearch");
+  },
   props: {
     id: {
       required: true,

@@ -8,7 +8,7 @@
 
         <MovieCard
           :class="{ 'last-movie-visible': true }"
-          v-for="movie in movies"
+          v-for="movie in moviesToDisplay"
           :key="movie.id"
           :movie="movie"
         />
@@ -20,6 +20,15 @@
 import { buildUrl } from "../infra/urlBuilder";
 import MovieCard from "../components/MovieCard";
 import ScrollWatch from "scrollwatch";
+import { mapState } from "vuex";
+
+function mapMovie(movie){
+  return {
+    ...movie,
+    poster_url: buildUrl(movie.poster_path, "w500"),
+    titleForSearch: movie.title.toLowerCase()
+  };
+}
 
 export default {
   name: "home",
@@ -34,6 +43,7 @@ export default {
     firstload: true
   }),
   async created() {
+    this.$store.dispatch("showSearch");
     await this.loadNextPage();
   },
   mounted() {
@@ -59,15 +69,22 @@ export default {
       this.loading = true;
       const nextPage = pageLoaded + 1;
       const res = await this.$get(`?start=${nextPage}`);
-      const resultWithLink = res.results.map(movie => ({
-        ...movie,
-        poster_url: buildUrl(movie.poster_path, "w500")
-      }));
-      movies.push(...resultWithLink);
+      const updatedMovies = res.results.map(mapMovie);
+      movies.push(...updatedMovies);
       this.pageLoaded = nextPage;
       this.loadedAll = res.total_results === movies.length;
       this.firstload = false;
       this.loading = false;
+    }
+  },
+  computed: {
+    ...mapState(["searchInformation"]),
+    moviesToDisplay() {
+      const { searchInformation, movies } = this;
+      const search = searchInformation.toLowerCase();
+      return searchInformation === ""
+        ? movies
+        : movies.filter(movie => movie.titleForSearch.includes(search));
     }
   }
 };
