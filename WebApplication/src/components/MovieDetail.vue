@@ -29,7 +29,7 @@
           <v-row>
             <p class="text-justify">{{ movie.overview }}</p>
           </v-row>
-          <v-row v-if="movie.homepage">
+          <v-row>
             <v-card-actions>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
@@ -48,7 +48,7 @@
                 <span class="caption">To home</span>
               </v-tooltip>
 
-              <v-tooltip bottom>
+              <v-tooltip bottom v-if="movie.homepage">
                 <template v-slot:activator="{ on }">
                   <v-btn
                     class="mx-2"
