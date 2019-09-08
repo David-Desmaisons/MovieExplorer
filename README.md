@@ -47,5 +47,6 @@ npm run serve
 - [vue router](https://router.vuejs.org/) to handle client-side navigation
 - [vuetify](https://vuetifyjs.com/en/) as UI library
 - [axios](https://github.com/axios/axios) as a ajax library
+- [scrollwatch](https://edull24.github.io/ScrollWatch/) to handle lazy-loading on scroll
 
 
