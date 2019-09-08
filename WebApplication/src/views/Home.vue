@@ -2,6 +2,10 @@
   <v-content>
     <v-container fluid class="main-container">
       <v-flex lg10 offset-lg1 row wrap>
+        <v-overlay :value="firstload">
+          <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
+
         <MovieCard v-for="movie in movies" :key="movie.id" :movie="movie" />
       </v-flex>
     </v-container>
@@ -20,7 +24,8 @@ export default {
     loading: false,
     movies: [],
     pageLoaded: 0,
-    loadedAll: false
+    loadedAll: false,
+    firstload: true
   }),
   async created() {
     await this.loadNextPage();
@@ -40,6 +45,7 @@ export default {
       movies.push(...resultWithLink);
       this.pageLoaded = nextPage;
       this.loadedAll = res.total_results === movies.length;
+      this.firstload = false;
     }
   }
 };

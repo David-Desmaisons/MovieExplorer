@@ -2,17 +2,17 @@
   <v-content>
     <v-container fluid class="main-container">
       <v-flex lg10 offset-lg1>
-        <MovieDetail :id="id" />
+        <MovieDetailLazy :id="id" />
       </v-flex>
     </v-container>
   </v-content>
 </template>
 <script>
-import MovieDetail from "../components/MovieDetail";
+import MovieDetailLazy from "../components/MovieDetailLazy";
 export default {
   name: "movie",
   components: {
-    MovieDetail
+    MovieDetailLazy
   },
   props: {
     id: {

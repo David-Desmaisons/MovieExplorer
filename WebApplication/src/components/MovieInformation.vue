@@ -4,23 +4,34 @@
     <v-card-text>{{ movie.release_date }}</v-card-text>
     <v-spacer></v-spacer>
     <v-divider></v-divider>
-    <v-rating
-      :value="movie.vote_average / 2"
-      readonly
-      small
-      color="yellow"
-      background-color="grey lighten-1"
-    ></v-rating>
+    <MovieRating :vote="movie.vote_average" />
     <v-card-actions>
-      <v-btn class="mx-2" fab dark small color="primary" :to="detailRoute">
-        <v-icon dark>mdi-alert-circle</v-icon>
-      </v-btn>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            class="mx-2"
+            fab
+            dark
+            small
+            color="primary"
+            :to="detailRoute"
+            v-on="on"
+          >
+            <v-icon dark>mdi-alert-circle</v-icon>
+          </v-btn>
+        </template>
+        <span class="caption">Detail</span>
+      </v-tooltip>
     </v-card-actions>
   </v-card>
 </template>
 <script>
+import MovieRating from "./MovieRating";
 export default {
   name: "movie-information",
+  components: {
+    MovieRating
+  },
   props: {
     movie: {
       required: true,
