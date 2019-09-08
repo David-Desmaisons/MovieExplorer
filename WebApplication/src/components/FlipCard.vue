@@ -11,7 +11,10 @@
       <figure class="front-card">
         <slot name="front"> </slot>
       </figure>
-      <figure class="back-card">
+      <figure
+        class="back-card"
+        :style="backStyle"
+      >
         <slot name="back"> </slot>
       </figure>
     </div>
@@ -45,7 +48,31 @@ const props = {
   }
 };
 export default {
-  props
+  props,
+  data: () => ({
+    firstFlip: true,
+    forceBackface: false
+  }),
+  computed: {
+    backStyle() {
+      return this.forceBackface ? { "backface-visibility": "visible" } : null;
+    }
+  },
+  watch: {
+    flipped(value) {
+      if (!value || !this.firstFlip) {
+        return;
+      }
+      this.firstFlip = false;
+      window.setTimeout(() => {
+        this.forceBackface = true;
+      }, this.transition * 300);
+
+      window.setTimeout(() => {
+        this.forceBackface = false;
+      }, this.transition * 1000);
+    }
+  }
 };
 </script>
 <style scoped>
