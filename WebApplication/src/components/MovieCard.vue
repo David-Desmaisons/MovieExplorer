@@ -2,7 +2,7 @@
   <FlipCard
     @mouseover.native="flipped = true"
     @mouseleave.native="flipped = false"
-    :flipped="true"
+    :flipped="flipped"
     width="200px"
     height="400px"
   >

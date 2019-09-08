@@ -1,8 +1,16 @@
 <template>
-  <v-card>
+  <v-card class="information">
     <v-card-title class="normal">{{ movie.title }}</v-card-title>
     <v-card-text>{{ movie.release_date}}</v-card-text>
-    <v-divider class="ml-auto"></v-divider>
+    <v-spacer></v-spacer>
+    <v-divider></v-divider>
+    <v-rating
+      :value="movie.vote_average/2"
+      readonly
+      small
+      color="yellow"
+      background-color="grey lighten-1"
+    ></v-rating>
     <v-card-actions>
       <v-btn
         class="mx-2"
@@ -10,6 +18,7 @@
         dark
         small
         color="primary"
+        :to="detailRoute"
       >
         <v-icon dark>mdi-alert-circle</v-icon>
       </v-btn>
@@ -23,12 +32,25 @@ export default {
       required: true,
       type: Object
     }
+  },
+  computed: {
+    detailRoute() {
+      const {
+        movie: { id }
+      } = this;
+      return {
+        name: "movie",
+        params: { id: `${id}` }
+      };
+    }
   }
 };
 </script>
 <style lang="less" scoped>
-
-.normal {
-  word-wrap: normal;
+// .information {
+//   backface-visibility: visible;
+// }
+div.normal {
+  word-break: normal;
 }
 </style>

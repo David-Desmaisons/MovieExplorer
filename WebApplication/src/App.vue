@@ -3,7 +3,7 @@
     <v-app-bar app>
       <v-toolbar-title>
         <v-icon>mdi-movie-roll</v-icon>
-        <span>Movie Explorer</span>
+        <span>Upcoming movies</span>
       </v-toolbar-title>
     </v-app-bar>
 

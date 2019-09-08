@@ -8,7 +8,7 @@
       :class="{ flipped }"
       :style="{ transition: 'transform ' + transition + 's' }"
     >
-      <figure class="front">
+      <figure class="front-card">
         <slot name="front"> </slot>
       </figure>
       <figure class="back-card">
@@ -51,6 +51,7 @@ export default {
 <style scoped>
 .card-container {
   position: relative;
+  margin: 5px;
 }
 .flip-card {
   width: 100%;
@@ -60,11 +61,11 @@ export default {
 }
 .flip-card figure {
   margin: 0;
-  display: block;
   position: absolute;
   width: 100%;
   height: 100%;
-  /* backface-visibility: hidden; */
+  transform: translate3d(0,0,0);
+  backface-visibility: hidden;
 }
 .flip-card .back-card {
   transform: rotateY(180deg);
