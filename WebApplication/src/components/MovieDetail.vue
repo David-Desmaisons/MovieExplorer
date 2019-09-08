@@ -1,30 +1,49 @@
 <template>
   <Loading :url="`/${id}`">
+    <template #loading>
+      <v-card>
+        <v-row class="py-4 pl-4">
+          <v-col>
+            <div class="place-holder"></div>
+          </v-col>
+          <v-col>
+            <v-container class="pa-0">
+              <v-row> </v-row>
+            </v-container>
+          </v-col>
+        </v-row>
+      </v-card>
+    </template>
     <template #default="{data}">
       <v-card>
-        <v-card-title>{{ data.title }}</v-card-title>
         <v-row class="py-4 pl-4">
-          <v-col class="shrink">
-            <v-img :src="buildUrl(data.poster_path, 'w780')"></v-img>
+          <v-col>
+            <v-img
+              aspect-ratio="1"
+              contain
+              :src="buildUrl(data.poster_path, 'w780')"
+            >
+              <template #placeholder>
+                <div class="place-holder"></div>
+              </template>
+            </v-img>
           </v-col>
-          <v-col class="text-center">
+          <v-col>
             <v-container class="pa-0">
               <v-row>
-                <v-col>
-                  <v-btn icon>
-                    <v-icon>mdi-heart</v-icon>
-                  </v-btn>
-                </v-col>
-                <v-col>
-                  <v-btn icon>
-                    <v-icon>mdi-bookmark</v-icon>
-                  </v-btn>
-                </v-col>
-                <v-col>
-                  <v-btn icon>
-                    <v-icon>mdi-share-variant</v-icon>
-                  </v-btn>
-                </v-col>
+                <v-card-title>{{ data.title }}</v-card-title>
+              </v-row>
+              <v-row>
+                <v-rating
+                  :value="data.vote_average / 2"
+                  readonly
+                  small
+                  color="yellow"
+                  background-color="grey lighten-1"
+                ></v-rating>
+              </v-row>
+              <v-row>
+                <span>{{ data.overview }}</span>
               </v-row>
             </v-container>
           </v-col>
@@ -53,4 +72,10 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.place-holder {
+  background: lightgray;
+  height: 750px;
+  margin: 0px 130px 0px 120px;
+}
+</style>

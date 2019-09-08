@@ -2,8 +2,15 @@
   <v-app>
     <v-app-bar app>
       <v-toolbar-title>
-        <v-icon>mdi-movie-roll</v-icon>
-        <span>Upcoming movies</span>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn text :to="{ name: 'home' }" rounded v-on="on">
+              <v-icon left>mdi-movie-roll</v-icon>
+              Upcoming movies
+            </v-btn>
+          </template>
+          <span class="caption">Home</span>
+        </v-tooltip>
       </v-toolbar-title>
     </v-app-bar>
 
