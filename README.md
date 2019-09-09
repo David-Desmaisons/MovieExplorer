@@ -2,18 +2,25 @@
 
 ## Architecture
 
+The solution consist in two totally separated applications. As such, they can be maintained and deployed independently. 
+
 The web-application is a Single Page Application implemented in vue.js.
+The application state is managed by a Vuex store and the client-side routing by vue-router.
 
 The back-end API is a REST-API implemented in ASP.Net Core.
 It is decomposed in two assembly: 
 - the Site is responsible for exposing the API
 - Services exposes the access to the Movie DataBase API through interface for better decoupling. 
-
 No caching strategy is currently implemented.
 
 
+## Assumptions
 
-## Assumptions (if any)
+The genre information is  cached by the web-application.
+The application is making the implicit assumptions this information will not change.
+
+It is noteworthy that further caching could be implemented on the client side.
+THis could be done in second phase while scaling the application.
 
 ## Build instructions
 
@@ -35,6 +42,8 @@ For debug:
 npm install
 npm run serve
 ```
+
+When running in debug the front-application 
 
 ## Libraries used
 
