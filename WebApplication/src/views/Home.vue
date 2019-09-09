@@ -8,12 +8,17 @@
       <v-card-title>
         <p>
           Your search:
-          <span class="red--text">{{searchValue}}</span> did not match any movie
+          <span class="red--text">{{ searchValue }}</span> did not match any
+          movie
         </p>
       </v-card-title>
     </v-card>
 
-    <MovieCard v-for="movie in moviesToDisplay" :key="movie.id" :movie="movie" />
+    <MovieCard
+      v-for="movie in moviesToDisplay"
+      :key="movie.id"
+      :movie="movie"
+    />
   </v-flex>
 </template>
 <script>

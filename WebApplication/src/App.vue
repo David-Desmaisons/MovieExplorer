@@ -60,7 +60,7 @@ export default {
 .search {
   max-width: 30%;
 }
-.application{
+.application {
   width: 100%;
 }
 

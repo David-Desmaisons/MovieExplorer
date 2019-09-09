@@ -6,14 +6,19 @@
     <slot v-else-if="error" name="error" v-bind="{ error }">
       <div>{{ error }}</div>
     </slot>
-    <slot v-else v-bind="{ data }"> </slot>
+    <slot v-else v-bind="{ data }"></slot>
   </div>
 </template>
 
 <script>
 export default {
   name: "loading",
-  props: ["url"],
+  props: {
+    url: {
+      type: String,
+      required: true
+    }
+  },
   data: () => ({
     loading: true,
     data: null,
