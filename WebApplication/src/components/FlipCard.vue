@@ -11,10 +11,7 @@
       <figure class="front-card">
         <slot name="front"> </slot>
       </figure>
-      <figure
-        class="back-card"
-        :style="backStyle"
-      >
+      <figure class="back-card" :style="backStyle">
         <slot name="back"> </slot>
       </figure>
     </div>
@@ -78,7 +75,7 @@ export default {
 
       window.setTimeout(() => {
         this.forceBackface = false;
-      }, 1000);
+      }, 1000 * transition);
     }
   }
 };

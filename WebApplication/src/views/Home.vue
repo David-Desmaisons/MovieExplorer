@@ -90,8 +90,8 @@ export default {
       this.onLoaded(result, nextPage);
     },
     onLoaded({ results, total_results }, nextPage) {
-      const { movies } = this;
       const updatedMovies = results.map(mapMovie);
+      const { movies } = this;
       movies.push(...updatedMovies);
       this.pageLoaded = nextPage;
       this.loadedAll = total_results === movies.length;
