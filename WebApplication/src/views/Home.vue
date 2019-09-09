@@ -68,7 +68,7 @@ export default {
       this.updateLoading(!this.firstload);
       this.loading = true;
       const nextPage = pageLoaded + 1;
-      const result = await this.$get(`?start=${nextPage}`);
+      const result = await this.$get(`Movies?start=${nextPage}`);
       this.onLoaded(result, nextPage);
     },
     onLoaded({ results, total_results }, nextPage) {

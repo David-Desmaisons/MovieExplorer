@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { get } from "@/infra/ajax";
 
 Vue.use(Vuex);
 
@@ -7,7 +8,8 @@ export default new Vuex.Store({
   state: {
     showSearch: true,
     searchInformation: "",
-    loading: false
+    loading: false,
+    genres: []
   },
   mutations: {
     updateSearchStatus(state, value) {
@@ -18,6 +20,9 @@ export default new Vuex.Store({
     },
     updateLoading(state, value) {
       state.loading = value;
+    },
+    updateGenres(state, value) {
+      state.genres = value;
     }
   },
   actions: {
@@ -28,6 +33,10 @@ export default new Vuex.Store({
     hideSearch({ commit }) {
       commit("updateSearchInformation", "");
       commit("updateSearchStatus", false);
+    },
+    async loadGenres({ commit }) {
+      const result = await get("Genres");
+      commit("updateGenres", result.genres);
     }
   }
 });

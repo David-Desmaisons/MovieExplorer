@@ -1,5 +1,5 @@
 <template>
-  <Loading :url="`/${id}`">
+  <Loading :url="`Movies/${id}`">
     <template #loading>
       <v-card>
         <v-row class="py-4 pl-4">

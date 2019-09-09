@@ -2,6 +2,7 @@
   <v-card class="information">
     <v-card-title class="normal">{{ movie.title }}</v-card-title>
     <v-card-text>{{ movie.release_date }}</v-card-text>
+    <v-card-text>{{ movieGenres }}</v-card-text>
     <v-spacer></v-spacer>
     <v-divider></v-divider>
     <MovieRating :vote="movie.vote_average" />
@@ -27,6 +28,8 @@
 </template>
 <script>
 import MovieRating from "./MovieRating";
+import { mapState } from "vuex";
+
 export default {
   name: "movie-information",
   components: {
@@ -39,6 +42,12 @@ export default {
     }
   },
   computed: {
+    ...mapState(["genres"]),
+    movieGenres() {
+      const { genres, movie } = this;
+      const getGenre = id => genres.find(g => g.id === id);
+      return movie.genre_ids.map(id => getGenre(id).name).join(", ");
+    },
     detailRoute() {
       const {
         movie: { id }

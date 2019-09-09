@@ -41,6 +41,7 @@ import { mapState } from "vuex";
 export default {
   created() {
     this.$vuetify.theme.dark = false;
+    this.$store.dispatch("loadGenres");
   },
   computed: {
     ...mapState(["showSearch", "loading"]),
