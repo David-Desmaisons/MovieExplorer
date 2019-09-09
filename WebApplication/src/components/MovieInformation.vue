@@ -45,8 +45,8 @@ export default {
     ...mapState(["genres"]),
     movieGenres() {
       const { genres, movie } = this;
-      const getGenre = id => genres.find(g => g.id === id);
-      return movie.genre_ids.map(id => getGenre(id).name).join(", ");
+      const getGenreName = id => genres.find(g => g.id === id).name;
+      return movie.genre_ids.map(getGenreName).join(", ");
     },
     detailRoute() {
       const {
