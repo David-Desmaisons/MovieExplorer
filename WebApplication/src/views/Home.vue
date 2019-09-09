@@ -13,13 +13,21 @@
           <v-progress-circular indeterminate size="64"></v-progress-circular>
         </v-overlay>
 
+        <v-card
+          lg12
+          v-if="loadedAll && searchValue !== '' && moviesToDisplay.length === 0"
+        >
+          <v-card-title>
+            Nothing found.
+          </v-card-title>
+        </v-card>
+
         <MovieCard
           :class="{ 'last-movie-visible': true }"
           v-for="movie in moviesToDisplay"
           :key="movie.id"
           :movie="movie"
         />
-        
       </v-flex>
     </v-container>
   </v-content>
