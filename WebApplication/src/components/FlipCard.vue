@@ -1,51 +1,37 @@
 <template>
   <section
     class="card-container"
-    :style="{ width, height, perspective: perspective + 'px' }"
+    :style="{ width, height, perspective: '800px' }"
   >
     <div
       class="flip-card"
       :class="{ flipped }"
-      :style="{ transition: 'transform ' + transition + 's' }"
+      :style="{ transition: 'transform 1s' }"
     >
       <figure class="front-card">
-        <slot name="front"> </slot>
+        <slot name="front"></slot>
       </figure>
       <figure class="back-card" :style="backStyle">
-        <slot name="back"> </slot>
+        <slot name="back"></slot>
       </figure>
     </div>
   </section>
 </template>
 <script>
-function isChromeContext() {
-  return !!window.chrome && !!window.chrome.csi;
-}
-const isChrome = isChromeContext();
+import { getContext } from "../infra/browserContext";
+
 const props = {
   flipped: {
     required: false,
     default: false
   },
   width: {
-    required: false,
-    type: String,
-    default: "150px"
+    required: true,
+    type: String
   },
   height: {
-    required: false,
-    type: String,
-    default: "150px"
-  },
-  perspective: {
-    required: false,
-    type: Number,
-    default: 800
-  },
-  transition: {
-    required: false,
-    type: Number,
-    default: 1
+    required: true,
+    type: String
   }
 };
 export default {
@@ -60,22 +46,40 @@ export default {
       return this.forceBackface ? { "backface-visibility": "visible" } : null;
     }
   },
-  watch: {
-    flipped(value) {
-      if (!isChrome) {
-        return;
-      }
-      //Chrome CSS fix
-      const { transition, firstFlip } = this;
-      if (!value || !firstFlip) {
-        return;
-      }
-      this.firstFlip = false;
-      this.forceBackface = true;
+  created() {
+    const { setTimeout, clearTimeout } = window;
+    const updateBackface = (value, time = 1, callBack = null) =>
+      setTimeout(() => {
+        this.forceBackface = value;
+        callBack && callBack();
+      }, 1000 * time);
 
-      window.setTimeout(() => {
-        this.forceBackface = false;
-      }, 1000 * transition);
+    const setFlipWatcher = watcher => this.$watch("flipped", watcher);
+    const context = getContext();
+    let handle = null;
+    switch (context) {
+      case "chrome":
+        setFlipWatcher(value => {
+          const { firstFlip } = this;
+          if (!value || !firstFlip) {
+            return;
+          }
+          this.firstFlip = false;
+          this.forceBackface = true;
+          updateBackface(false);
+        });
+        break;
+
+      case "IE11":
+        setFlipWatcher(value => {
+          if (handle) {
+            clearTimeout(handle);
+            handle = null;
+            return;
+          }
+          handle = updateBackface(value, 0.3, () => (handle = null));
+        });
+        break;
     }
   }
 };
