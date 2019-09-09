@@ -1,7 +1,14 @@
 <template>
   <v-content>
     <v-container fluid class="main-container">
-      <v-flex lg10 offset-lg1 row wrap class="movie-item-container">
+      <v-flex
+        lg10
+        offset-lg1
+        row
+        wrap
+        xs12
+        class="mt-5 mb-5 movie-item-container"
+      >
         <v-overlay :value="firstload">
           <v-progress-circular indeterminate size="64"></v-progress-circular>
         </v-overlay>
@@ -12,6 +19,7 @@
           :key="movie.id"
           :movie="movie"
         />
+        
       </v-flex>
     </v-container>
   </v-content>
@@ -20,6 +28,7 @@
 import MovieCard from "../components/MovieCard";
 import ScrollWatch from "scrollwatch";
 import { mapState, mapMutations } from "vuex";
+import debounce from "lodash.debounce";
 
 function mapMovie(movie) {
   return {
@@ -38,7 +47,8 @@ export default {
     movies: [],
     pageLoaded: 0,
     loadedAll: false,
-    firstload: true
+    firstload: true,
+    searchValue: ""
   }),
   async created() {
     this.$store.dispatch("displaySearch");
@@ -80,16 +90,23 @@ export default {
       this.firstload = false;
       this.loading = false;
       this.updateLoading(false);
-    }
+    },
+    updateSearch: debounce(function(value) {
+      this.searchValue = value.toLowerCase();
+    }, 200)
   },
   computed: {
     ...mapState(["searchInformation"]),
     moviesToDisplay() {
-      const { searchInformation, movies } = this;
-      const search = searchInformation.toLowerCase();
-      return searchInformation === ""
+      const { searchValue, movies } = this;
+      return searchValue === ""
         ? movies
-        : movies.filter(movie => movie.titleForSearch.includes(search));
+        : movies.filter(movie => movie.titleForSearch.includes(searchValue));
+    }
+  },
+  watch: {
+    searchInformation(value) {
+      this.updateSearch(value);
     }
   }
 };
