@@ -18,7 +18,7 @@ namespace MovieExplorerApi.Services.Tests
             configuration["TheMovieDatabase:APIKey"] = "1f54bd990f1cdfb230adb312546d765d";
             var client = new HttpClient()
             {
-                BaseAddress = new Uri("https://api.themoviedb.org/3/movie/")
+                BaseAddress = new Uri("https://api.themoviedb.org/3/")
             };
             _MovieDatabaseService = new TheMovieDatabaseClient(client, configuration);
         }
@@ -60,11 +60,21 @@ namespace MovieExplorerApi.Services.Tests
         [Fact]
         public async Task GetMovieDetailAsync_Returns_Result_Not_Empty()
         {
-            var id = 474350;
+            const int id = 474350;
             var result = await _MovieDatabaseService.GetMovieDetailAsync(id);
 
             result.Should().NotBeNull();
             result.id.Should().Be(id);
+        }
+
+        [Fact]
+        public async Task GetAllGenresAsync_Returns_Result_Not_Empty()
+        {
+            var result = await _MovieDatabaseService.GetAllGenresAsync();
+
+            result.Should().NotBeNull();
+            result.genres.Should().NotBeNull();
+            result.genres.Should().NotBeEmpty();
         }
     }
 }
