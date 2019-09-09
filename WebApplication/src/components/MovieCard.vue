@@ -1,7 +1,7 @@
 <template>
   <div>
     <MovieInformation
-      v-if="!movie.poster_url"
+      v-if="!movie.poster_path"
       class="movie-information"
       :movie="movie"
     />
@@ -14,7 +14,7 @@
       height="400px"
     >
       <template #front>
-        <v-img :src="movie.poster_url" width="220px" height="400px">
+        <v-img :src="movie.poster_path" width="220px" height="400px">
           <template #placeholder>
             <v-row
               class="fill-height ma-0 grey"

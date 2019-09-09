@@ -53,6 +53,6 @@ export default {
 </script>
 <style lang="less" scoped>
 div.normal {
-  word-break: normal;
+  word-break: break-word;
 }
 </style>

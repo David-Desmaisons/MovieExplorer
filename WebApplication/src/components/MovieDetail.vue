@@ -73,7 +73,6 @@
 </template>
 <script>
 import MovieRating from "./MovieRating";
-import { buildUrl } from "../infra/urlBuilder";
 
 export default {
   name: "movie-detail",
@@ -88,7 +87,7 @@ export default {
   },
   computed: {
     posterUrl() {
-      return buildUrl(this.movie.poster_path, "w780");
+      return this.movie.poster_path;
     },
     genres() {
       return this.movie.genres.map(m => m.name).join(", ");

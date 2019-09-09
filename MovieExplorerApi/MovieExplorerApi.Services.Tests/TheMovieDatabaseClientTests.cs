@@ -11,11 +11,15 @@ namespace MovieExplorerApi.Services.Tests
     public class TheMovieDatabaseClientTests
     {
         private readonly TheMovieDatabaseClient _MovieDatabaseService;
+        private const string ResourcePath = "resourcePath";
+        private const int Id= 474350;
 
         public TheMovieDatabaseClientTests()
         {
             var configuration = NSubstitute.Substitute.For<IConfiguration>();
             configuration["TheMovieDatabase:APIKey"] = "1f54bd990f1cdfb230adb312546d765d";
+            configuration["TheMovieDatabase:resourceUrl"] = ResourcePath;
+
             var client = new HttpClient()
             {
                 BaseAddress = new Uri("https://api.themoviedb.org/3/")
@@ -58,13 +62,44 @@ namespace MovieExplorerApi.Services.Tests
         }
 
         [Fact]
+        public async Task GetUpComingMoviesAsync_Adjust_BackDrop_Path()
+        {
+            var result = await _MovieDatabaseService.GetUpComingMoviesAsync(1);
+
+            result.results[0].backdrop_path.Should().StartWith($"{ResourcePath}w500");
+        }
+
+        [Fact]
+        public async Task GetUpComingMoviesAsync_Adjust_Poster_Path()
+        {
+            var result = await _MovieDatabaseService.GetUpComingMoviesAsync(1);
+
+            result.results[0].poster_path.Should().StartWith($"{ResourcePath}w500");
+        }
+
+        [Fact]
         public async Task GetMovieDetailAsync_Returns_Result_Not_Empty()
         {
-            const int id = 474350;
-            var result = await _MovieDatabaseService.GetMovieDetailAsync(id);
+            var result = await _MovieDatabaseService.GetMovieDetailAsync(Id);
 
             result.Should().NotBeNull();
-            result.id.Should().Be(id);
+            result.id.Should().Be(Id);
+        }
+
+        [Fact]
+        public async Task GetMovieDetailAsync_Adjust_BackDrop_Path()
+        {
+            var result = await _MovieDatabaseService.GetMovieDetailAsync(Id);
+
+            result.backdrop_path.Should().StartWith($"{ResourcePath}w780");
+        }
+
+        [Fact]
+        public async Task GetMovieDetailAsync_Adjust_Poster_Path()
+        {
+            var result = await _MovieDatabaseService.GetMovieDetailAsync(Id);
+
+            result.poster_path.Should().StartWith($"{ResourcePath}w780");
         }
 
         [Fact]

@@ -17,7 +17,6 @@
   </v-content>
 </template>
 <script>
-import { buildUrl } from "../infra/urlBuilder";
 import MovieCard from "../components/MovieCard";
 import ScrollWatch from "scrollwatch";
 import { mapState, mapMutations } from "vuex";
@@ -25,7 +24,6 @@ import { mapState, mapMutations } from "vuex";
 function mapMovie(movie) {
   return {
     ...movie,
-    poster_url: buildUrl(movie.poster_path, "w500"),
     titleForSearch: movie.title.toLowerCase()
   };
 }
