@@ -1,33 +1,21 @@
 <template>
   <v-content>
     <v-container fluid class="main-container">
-      <v-flex
-        lg10
-        offset-lg1
-        row
-        wrap
-        xs12
-        class="mt-5 mb-5 movie-item-container"
-      >
+      <v-flex lg10 offset-lg1 row wrap xs12 class="mt-5 mb-5 movie-item-container">
         <v-overlay :value="firstload">
           <v-progress-circular indeterminate size="64"></v-progress-circular>
         </v-overlay>
 
-        <v-card
-          lg12
-          v-if="loadedAll && searchValue !== '' && moviesToDisplay.length === 0"
-        >
+        <v-card lg12 v-if="nothingFound">
           <v-card-title>
-            Nothing found.
+            <p>
+              Your search:
+              <span class="red--text">{{searchValue}}</span> did not match any movie
+            </p>
           </v-card-title>
         </v-card>
 
-        <MovieCard
-          :class="{ 'last-movie-visible': true }"
-          v-for="movie in moviesToDisplay"
-          :key="movie.id"
-          :movie="movie"
-        />
+        <MovieCard v-for="movie in moviesToDisplay" :key="movie.id" :movie="movie" />
       </v-flex>
     </v-container>
   </v-content>
@@ -102,9 +90,16 @@ export default {
     },
     updateSearch: debounce(function(value) {
       this.searchValue = value.toLowerCase();
-    }, 200)
+    }, 250)
   },
   computed: {
+    nothingFound() {
+      return (
+        this.loadedAll &&
+        this.searchValue !== "" &&
+        this.moviesToDisplay.length === 0
+      );
+    },
     ...mapState(["searchInformation"]),
     moviesToDisplay() {
       const { searchValue, movies } = this;
