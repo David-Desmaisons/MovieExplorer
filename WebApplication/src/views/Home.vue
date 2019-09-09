@@ -60,6 +60,7 @@ export default {
   }),
   async created() {
     this.$store.dispatch("displaySearch");
+    await this.$store.dispatch("loadGenres");
     await this.loadNextPage();
   },
   mounted() {

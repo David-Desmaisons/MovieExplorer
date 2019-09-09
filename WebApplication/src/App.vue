@@ -42,7 +42,6 @@ export default {
   name: "main-application",
   created() {
     this.$vuetify.theme.dark = false;
-    this.$store.dispatch("loadGenres");
   },
   computed: {
     ...mapState(["showSearch", "loading"]),

@@ -34,7 +34,10 @@ export default new Vuex.Store({
       commit("updateSearchInformation", "");
       commit("updateSearchStatus", false);
     },
-    async loadGenres({ commit }) {
+    async loadGenres({ commit, state }) {
+      if (state.genres.length > 0) {
+        return;
+      }
       const result = await get("Genres");
       commit("updateGenres", result.genres);
     }
