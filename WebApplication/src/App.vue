@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="application">
     <v-app-bar app>
       <v-toolbar-title>
         <v-tooltip bottom>
@@ -29,7 +29,7 @@
       ></v-text-field>
     </v-app-bar>
 
-    <v-content>
+    <v-content class="content">
       <router-view :key="$route.fullPath"></router-view>
     </v-content>
   </v-app>
@@ -56,8 +56,19 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style scoped>
 .search {
   max-width: 30%;
+}
+.application{
+  width: 100%;
+}
+
+.application >>> .v-application--wrap {
+  width: 100%;
+}
+
+.content >>> .v-content__wrap {
+  width: 100%;
 }
 </style>

@@ -1,24 +1,20 @@
 <template>
-  <v-content>
-    <v-container fluid class="main-container">
-      <v-flex lg10 offset-lg1 row wrap xs12 class="mt-5 mb-5 movie-item-container">
-        <v-overlay :value="firstload">
-          <v-progress-circular indeterminate size="64"></v-progress-circular>
-        </v-overlay>
+  <v-flex lg10 offset-lg1 row wrap xs12 class="mt-5 mb-5 movie-item-container">
+    <v-overlay :value="firstload">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
 
-        <v-card lg12 v-if="nothingFound">
-          <v-card-title>
-            <p>
-              Your search:
-              <span class="red--text">{{searchValue}}</span> did not match any movie
-            </p>
-          </v-card-title>
-        </v-card>
+    <v-card lg12 v-if="nothingFound">
+      <v-card-title>
+        <p>
+          Your search:
+          <span class="red--text">{{searchValue}}</span> did not match any movie
+        </p>
+      </v-card-title>
+    </v-card>
 
-        <MovieCard v-for="movie in moviesToDisplay" :key="movie.id" :movie="movie" />
-      </v-flex>
-    </v-container>
-  </v-content>
+    <MovieCard v-for="movie in moviesToDisplay" :key="movie.id" :movie="movie" />
+  </v-flex>
 </template>
 <script>
 import MovieCard from "../components/MovieCard";
@@ -115,3 +111,8 @@ export default {
   }
 };
 </script>
+<style lang="less">
+.movie-item-container {
+  width: 100%;
+}
+</style>
