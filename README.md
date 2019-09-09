@@ -63,5 +63,6 @@ When running in debug the front-application
 - [vuetify](https://vuetifyjs.com/en/) as UI library
 - [axios](https://github.com/axios/axios) as a ajax library
 - [scrollwatch](https://edull24.github.io/ScrollWatch/) to handle lazy-loading on scroll
+- [lodash.debounce](https://lodash.com/docs#debounce) to debounce search input updates
 
 
