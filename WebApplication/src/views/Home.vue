@@ -26,15 +26,9 @@ import MovieCard from "../components/MovieCard";
 import ScrollWatch from "scrollwatch";
 import { mapState, mapActions, mapMutations } from "vuex";
 import debounce from "lodash.debounce";
+import { fetchMovies } from "../infra/fetchMovies";
 
 const pageLength = 20;
-
-function mapMovie(movie) {
-  return {
-    ...movie,
-    titleForSearch: movie.title.toLowerCase()
-  };
-}
 
 export default {
   name: "home",
@@ -89,17 +83,16 @@ export default {
       this.loading = true;
       const nextPage = pageLoaded + 1;
       try {
-        const result = await this.$get(`Movies?start=${nextPage}`);
-        this.onLoadSuccess(result, nextPage);
+        const result = await fetchMovies(nextPage);
+        this.onLoadSuccess(result);
       } catch (error) {
         this.onLoadError(error);
       }
     },
-    onLoadSuccess({ results, total_results }, nextPage) {
-      const updatedMovies = results.map(mapMovie);
+    onLoadSuccess({ movies: newMovies, total_results, page }) {
       const { movies } = this;
-      movies.push(...updatedMovies);
-      this.pageLoaded = nextPage;
+      movies.push(...newMovies);
+      this.pageLoaded = page;
       this.loadedAll = total_results === movies.length;
       this.loadEnded();
     },
