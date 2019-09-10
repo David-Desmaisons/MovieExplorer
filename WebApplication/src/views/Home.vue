@@ -27,6 +27,8 @@ import ScrollWatch from "scrollwatch";
 import { mapState, mapActions, mapMutations } from "vuex";
 import debounce from "lodash.debounce";
 
+const pageLength = 20;
+
 function mapMovie(movie) {
   return {
     ...movie,
@@ -45,6 +47,7 @@ export default {
     pageLoaded: 0,
     loadedAll: false,
     firstload: true,
+    maxDisplay: pageLength,
     searchValue: ""
   }),
   async created() {
@@ -61,13 +64,17 @@ export default {
       infiniteScroll: true,
       watch: "section",
       infiniteOffset: 200,
-      onInfiniteYInView: () => this.loadNextPage()
+      onInfiniteYInView: () => {
+        const newDisplay = this.maxDisplay + pageLength;
+        this.maxDisplay = newDisplay;
+        if (this.allMoviesToDisplay.length >= newDisplay) {
+          return;
+        }
+        this.loadNextPage();
+      }
     });
     this.$once("hook:destroy", () => {
       watch.destroy();
-    });
-    this.$on("hook:updated", () => {
-      watch.refresh();
     });
   },
   methods: {
@@ -107,9 +114,11 @@ export default {
     },
     updateSearch: debounce(function(value) {
       this.searchValue = value.toLowerCase();
+      this.maxDisplay = pageLength;
     }, 250)
   },
   computed: {
+    ...mapState(["searchInformation"]),
     nothingFound() {
       return (
         this.loadedAll &&
@@ -117,17 +126,25 @@ export default {
         this.moviesToDisplay.length === 0
       );
     },
-    ...mapState(["searchInformation"]),
-    moviesToDisplay() {
+    allMoviesToDisplay() {
       const { searchValue, movies } = this;
       return searchValue === ""
         ? movies
         : movies.filter(movie => movie.titleForSearch.includes(searchValue));
+    },
+    moviesToDisplay() {
+      const { allMoviesToDisplay, maxDisplay } = this;
+      return allMoviesToDisplay.slice(0, maxDisplay);
     }
   },
   watch: {
     searchInformation(value) {
       this.updateSearch(value);
+    },
+    async allMoviesToDisplay(value) {
+      if (value.length < pageLength) {
+        await this.loadNextPage();
+      }
     }
   }
 };
