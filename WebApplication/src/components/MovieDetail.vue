@@ -11,7 +11,14 @@
           <h1>No image</h1>
         </v-row>
       </v-col>
-      <v-col cols="sm" :sm="12" :md="4" :offset-sm="0" :offset-md="0" class="ma-1">
+      <v-col
+        cols="sm"
+        :sm="12"
+        :md="4"
+        :offset-sm="0"
+        :offset-md="0"
+        class="ma-1"
+      >
         <v-container>
           <v-row>
             <h1>{{ movie.title }}</h1>

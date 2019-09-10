@@ -1,5 +1,13 @@
 <template>
-  <v-flex lg10 offset-lg1 xs8 offset-xs2 row wrap class="mt-5 mb-5 movie-item-container">
+  <v-flex
+    lg10
+    offset-lg1
+    xs8
+    offset-xs2
+    row
+    wrap
+    class="mt-5 mb-5 movie-item-container"
+  >
     <v-overlay :value="firstload">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
@@ -147,6 +155,6 @@ export default {
   width: 100%;
 }
 .feedback {
-  word-break: normal; 
+  word-break: normal;
 }
 </style>
