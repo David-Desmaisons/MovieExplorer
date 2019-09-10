@@ -16,6 +16,8 @@ namespace MovieExplorerApi.Services
 
         private const string MovieDatabaseKey = "TheMovieDatabase:APIKey";
         private const string ResourceUrlKey = "TheMovieDatabase:resourceUrl";
+        private const string Format300 = "w300";
+        private const string Format780 = "w780";
 
         public TheMovieDatabaseClient(HttpClient client, IConfiguration configuration)
         {
@@ -39,8 +41,8 @@ namespace MovieExplorerApi.Services
             }
             foreach (var result in movies.results)
             {
-                result.poster_path = UpdatePath(result.poster_path, "w500");
-                result.backdrop_path = UpdatePath(result.backdrop_path, "w500");
+                result.poster_path = UpdatePath(result.poster_path, Format300);
+                result.backdrop_path = UpdatePath(result.backdrop_path, Format300);
             }
             return movies;
         }
@@ -64,7 +66,7 @@ namespace MovieExplorerApi.Services
             return movie;
         }
 
-        private string UpdatePath(string path, string format = "w780")
+        private string UpdatePath(string path, string format = Format780)
         {
             return (path == null) ? null : $"{ResourceBaseUrl}{format}{path}";
         }

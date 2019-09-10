@@ -45,7 +45,5 @@ namespace MovieExplorerApi.Site.Tests.Controllers
 
             res.Value.Should().Be(result);
         }
-
-       
     }
 }

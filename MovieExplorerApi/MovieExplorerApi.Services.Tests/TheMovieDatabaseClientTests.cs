@@ -66,7 +66,7 @@ namespace MovieExplorerApi.Services.Tests
         {
             var result = await _MovieDatabaseService.GetUpComingMoviesAsync(1);
 
-            result.results[0].backdrop_path.Should().StartWith($"{ResourcePath}w500");
+            result.results[0].backdrop_path.Should().StartWith($"{ResourcePath}w300");
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace MovieExplorerApi.Services.Tests
         {
             var result = await _MovieDatabaseService.GetUpComingMoviesAsync(1);
 
-            result.results[0].poster_path.Should().StartWith($"{ResourcePath}w500");
+            result.results[0].poster_path.Should().StartWith($"{ResourcePath}w300");
         }
 
         [Fact]
