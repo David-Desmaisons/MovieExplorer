@@ -8,6 +8,8 @@ export default new Vuex.Store({
   state: {
     showSearch: true,
     searchInformation: "",
+    error: null,
+    showError: false,
     loading: false,
     genres: []
   },
@@ -23,6 +25,12 @@ export default new Vuex.Store({
     },
     updateGenres(state, value) {
       state.genres = value;
+    },
+    updateError(state, value) {
+      state.error = value;
+    },
+    updateShowError(state, value) {
+      state.showError = value;
     }
   },
   actions: {
@@ -40,6 +48,10 @@ export default new Vuex.Store({
       }
       const result = await get("Genres");
       commit("updateGenres", result.genres);
+    },
+    displayError({ commit }, value) {
+      commit("updateError", value);
+      commit("updateShowError", true);
     }
   }
 });

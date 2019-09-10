@@ -24,7 +24,7 @@
 <script>
 import MovieCard from "../components/MovieCard";
 import ScrollWatch from "scrollwatch";
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 import debounce from "lodash.debounce";
 
 function mapMovie(movie) {
@@ -49,8 +49,12 @@ export default {
   }),
   async created() {
     this.$store.dispatch("displaySearch");
-    await this.$store.dispatch("loadGenres");
-    await this.loadNextPage();
+    try {
+      await this.$store.dispatch("loadGenres");
+      await this.loadNextPage();
+    } catch (error) {
+      this.onLoadError(error);
+    }
   },
   mounted() {
     var watch = new ScrollWatch({
@@ -68,6 +72,7 @@ export default {
   },
   methods: {
     ...mapMutations(["updateLoading"]),
+    ...mapActions(["displayError"]),
     async loadNextPage() {
       const { loadedAll, loading, pageLoaded } = this;
       if (loadedAll || loading) {
@@ -76,15 +81,26 @@ export default {
       this.updateLoading(!this.firstload);
       this.loading = true;
       const nextPage = pageLoaded + 1;
-      const result = await this.$get(`Movies?start=${nextPage}`);
-      this.onLoaded(result, nextPage);
+      try {
+        const result = await this.$get(`Movies?start=${nextPage}`);
+        this.onLoadSuccess(result, nextPage);
+      } catch (error) {
+        this.onLoadError(error);
+      }
     },
-    onLoaded({ results, total_results }, nextPage) {
+    onLoadSuccess({ results, total_results }, nextPage) {
       const updatedMovies = results.map(mapMovie);
       const { movies } = this;
       movies.push(...updatedMovies);
       this.pageLoaded = nextPage;
       this.loadedAll = total_results === movies.length;
+      this.loadEnded();
+    },
+    onLoadError() {
+      this.displayError("Connection problem with server");
+      this.loadEnded();
+    },
+    loadEnded() {
       this.firstload = false;
       this.loading = false;
       this.updateLoading(false);

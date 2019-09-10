@@ -29,6 +29,13 @@
       ></v-text-field>
     </v-app-bar>
 
+    <v-snackbar color="error" :timeout="0" top v-model="showError">
+      {{ error }}
+      <v-btn color="pink" text @click="showError = false">
+        Close
+      </v-btn>
+    </v-snackbar>
+
     <v-content class="content">
       <router-view :key="$route.fullPath"></router-view>
     </v-content>
@@ -44,13 +51,21 @@ export default {
     this.$vuetify.theme.dark = false;
   },
   computed: {
-    ...mapState(["showSearch", "loading"]),
+    ...mapState(["showSearch", "loading", "error"]),
     searchInformation: {
       get() {
         return this.$store.state.searchInformation;
       },
       set(value) {
         this.$store.commit("updateSearchInformation", value);
+      }
+    },
+    showError: {
+      get() {
+        return this.$store.state.showError;
+      },
+      set(value) {
+        this.$store.commit("updateShowError", value);
       }
     }
   }
