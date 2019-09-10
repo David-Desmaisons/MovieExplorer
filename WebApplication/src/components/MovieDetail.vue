@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-row class="py-4 pl-4 mb-6">
-      <v-col :sm="6">
+      <v-col cols="sm" :sm="12" :md="6">
         <v-img v-if="posterUrl" aspect-ratio="1" contain :src="posterUrl">
           <template #placeholder>
             <div class="place-holder" />
@@ -11,8 +11,8 @@
           <h1>No image</h1>
         </v-row>
       </v-col>
-      <v-col :sm="4">
-        <v-container class="pa-0">
+      <v-col cols="sm" :sm="12" :md="4" :offset-sm="0" :offset-md="0" class="ma-1">
+        <v-container>
           <v-row>
             <h1>{{ movie.title }}</h1>
           </v-row>
@@ -27,7 +27,7 @@
           </v-row>
           <v-divider></v-divider>
           <v-row>
-            <p class="text-justify">{{ movie.overview }}</p>
+            <p class="overview text-justify">{{ movie.overview }}</p>
           </v-row>
           <v-row>
             <v-card-actions>
@@ -107,5 +107,9 @@ export default {
   h1 {
     vertical-align: middle;
   }
+}
+
+.overview {
+  padding: 0 10px 10px 0;
 }
 </style>
