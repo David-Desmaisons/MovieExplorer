@@ -8,20 +8,25 @@ https://upcoming-movies.azurewebsites.net/
 
 The solution consist in two totally separated applications. As such, they can be maintained, deployed and scaled independently. 
 
-The web-application is a Single Page Application implemented in vue.js.
+- The web-application is a Single Page Application implemented in vue.js.
 The application state is managed by a Vuex store and the client-side routing by vue-router.
+Infinite scroll loading has been used.
+For search, loaded movies are first filtered. If the total number of filtered data is superior to the pagination, more data will be fetched from the server.
 
-The back-end API is a REST-API implemented in ASP.Net Core.
+
+- The back-end API is a REST-API implemented in ASP.Net Core.
 It is decomposed in two assembly: 
-- the Site is responsible for exposing the API
-- Services exposes the access to the Movie DataBase API through interface for better decoupling. 
-No caching strategy is currently implemented.
+  - the Site is responsible for exposing the API
+  - Services exposes the access to the Movie DataBase API through interface for better decoupling. 
+  No caching strategy is currently implemented.
 
 
 ## Assumptions
 
-The genre information is  cached by the web-application.
+The genre information is cached by the web-application.
 The application is making the implicit assumptions this information will not change.
+
+The total number of page is also used to determine if further loading is needed, so there is the implicit assumption that the paging information returned by the API are coherent.
 
 Further caching could be implemented on the client side taking advantage of the store.
 This could be done in second phase while scaling the application, and carefully checking the implication on user experience.
