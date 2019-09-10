@@ -1,4 +1,8 @@
-# MovieWebApplication
+# MovieExplorer
+
+Live demo:
+
+https://upcoming-movies.azurewebsites.net/
 
 ## Architecture
 
@@ -19,8 +23,8 @@ No caching strategy is currently implemented.
 The genre information is  cached by the web-application.
 The application is making the implicit assumptions this information will not change.
 
-It is noteworthy that further caching could be implemented on the client side.
-THis could be done in second phase while scaling the application.
+Further caching could be implemented on the client side taking advantage of the store.
+This could be done in second phase while scaling the application, and carefully checking the implication on user experience.
 
 ## Build instructions
 
@@ -43,7 +47,8 @@ npm install
 npm run serve
 ```
 
-When running in debug the front-application 
+When running in debug the front-end application, the back-end url is provided by the .env file.
+It is configured to be the default port of the ASP back-end and should work without adjust.
 
 ## Libraries used
 
@@ -53,14 +58,14 @@ When running in debug the front-application
   - For tests:
     - [XUnit](https://xunit.net/) as test framework
     - [NSubstitute](https://nsubstitute.github.io/) for mocking
-    - [FluentAssertions](https://fluentassertions.com/) for assertion
-    - [AutoFixture](https://github.com/AutoFixture/AutoFixture) to generate random data
+    - [FluentAssertions](https://fluentassertions.com/) for test assertion
+    - [AutoFixture](https://github.com/AutoFixture/AutoFixture) to generate random test data
 
 ### Front-End
 
 - [vue.js](https://vuejs.org/) as the front-end framework
 - [vue router](https://router.vuejs.org/) to handle client-side navigation
-- [vuetify](https://vuetifyjs.com/en/) as UI library
+- [vuetify](https://vuetifyjs.com/en/) as UI material design library
 - [axios](https://github.com/axios/axios) as a ajax library
 - [scrollwatch](https://edull24.github.io/ScrollWatch/) to handle lazy-loading on scroll
 - [lodash.debounce](https://lodash.com/docs#debounce) to debounce search input updates
