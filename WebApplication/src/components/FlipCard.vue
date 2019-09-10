@@ -47,6 +47,7 @@ export default {
     }
   },
   created() {
+    //Hack ro handle card rotation from chrome and IE11
     const { setTimeout, clearTimeout } = window;
     const updateBackface = (value, time = 1, callBack = null) =>
       setTimeout(() => {
