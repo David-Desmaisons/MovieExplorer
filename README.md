@@ -6,7 +6,7 @@ https://upcoming-movies.azurewebsites.net/
 
 ## Architecture
 
-The solution consist in two totally separated applications. As such, they can be maintained and deployed independently. 
+The solution consist in two totally separated applications. As such, they can be maintained, deployed and scaled independently. 
 
 The web-application is a Single Page Application implemented in vue.js.
 The application state is managed by a Vuex store and the client-side routing by vue-router.
