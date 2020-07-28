@@ -4,6 +4,8 @@ Live demo:
 
 https://upcoming-movies.azurewebsites.net/
 
+![Screen shots](./demo.gif)
+
 ## Architecture
 
 The solution consist in two totally separated applications. As such, they can be maintained, deployed and scaled independently. 
