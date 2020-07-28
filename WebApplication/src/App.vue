@@ -1,31 +1,89 @@
 <template>
-  <v-app>
+  <v-app class="application">
     <v-app-bar app>
-      <v-toolbar-title class="headline">
-        <v-icon>mdi-movie-roll</v-icon>
-        <span>Movie Explorer</span>
+      <v-toolbar-title>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn text :to="{ name: 'home' }" rounded v-on="on">
+              <v-icon left>mdi-movie-roll</v-icon>
+              Upcoming movies
+            </v-btn>
+          </template>
+          <span class="caption">Home</span>
+        </v-tooltip>
       </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn v-if="loading" text loading></v-btn>
+      <v-text-field
+        v-if="showSearch"
+        class="search"
+        hide-details
+        rounded
+        outlined
+        solo
+        flat
+        append-icon="mdi-magnify"
+        v-model="searchInformation"
+        height="2px"
+        label="Search"
+      ></v-text-field>
     </v-app-bar>
 
-    <v-content>
-      <router-view></router-view>
+    <v-snackbar color="error" :timeout="0" top v-model="showError">
+      {{ error }}
+      <v-btn color="pink" text @click="showError = false">
+        Close
+      </v-btn>
+    </v-snackbar>
+
+    <v-content class="content">
+      <router-view :key="$route.fullPath"></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import { watch } from "fs";
+import { mapState } from "vuex";
+
 export default {
-  data: () => ({
-    dark: true
-  }),
+  name: "main-application",
   created() {
-    this.$vuetify.theme.dark = this.dark;
+    this.$vuetify.theme.dark = false;
   },
-  watch: {
-    dark(value) {
-      this.$vuetify.theme.dark = value;
+  computed: {
+    ...mapState(["showSearch", "loading", "error"]),
+    searchInformation: {
+      get() {
+        return this.$store.state.searchInformation;
+      },
+      set(value) {
+        this.$store.commit("updateSearchInformation", value);
+      }
+    },
+    showError: {
+      get() {
+        return this.$store.state.showError;
+      },
+      set(value) {
+        this.$store.commit("updateShowError", value);
+      }
     }
   }
 };
 </script>
+<style scoped>
+.search {
+  max-width: 30%;
+}
+.application {
+  width: 100%;
+}
+
+.application >>> .v-application--wrap {
+  width: 100%;
+}
+
+.content >>> .v-content__wrap {
+  width: 100%;
+}
+</style>
